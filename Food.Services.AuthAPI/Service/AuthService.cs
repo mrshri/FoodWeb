@@ -74,7 +74,7 @@ namespace Food.Services.AuthAPI.Service
 
         public async Task<string> Register(RegistrationRequestDto registrationRequestDto)
         {
-            ApplicationUser user = new ApplicationUser()
+            ApplicationUser user = new()
             {
                 UserName = registrationRequestDto.Email,
                 Email = registrationRequestDto.Email,
@@ -98,19 +98,17 @@ namespace Food.Services.AuthAPI.Service
                         ID = userToReturn.Id
                     };
 
-                    return " ";
+                    return "";
                 }
                 else
                 {
                     return result.Errors.FirstOrDefault().Description;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
-            return "An Error Occurred";
-
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Food.Services.AuthAPI.Controllers
         public async Task<IActionResult> Register([FromBody]RegistrationRequestDto model)
         {
             var errorMessage = await _authService.Register(model);
-            if (string.IsNullOrEmpty(errorMessage)) {
+            if (!string.IsNullOrEmpty(errorMessage)) {
                 _response.IsSuccess = false;
                 _response.ErrorMessage = errorMessage;
                 return BadRequest(_response);
