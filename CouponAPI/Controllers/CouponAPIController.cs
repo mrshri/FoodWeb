@@ -85,7 +85,7 @@ namespace Food.Services.CouponAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto AddCoupon([FromBody] CouponDTO couponDto)
         {
             try
@@ -107,7 +107,7 @@ namespace Food.Services.CouponAPI.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto UpdateCoupon([FromBody] CouponDTO couponDto)
         {
             try
@@ -130,7 +130,7 @@ namespace Food.Services.CouponAPI.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public ResponseDto DeleteCoupon(int id)
         {
             try
