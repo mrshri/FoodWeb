@@ -1,9 +1,6 @@
 ﻿using Food.Web.Models;
-using Food.Web.Models;
 using Food.Web.Services.IServices;
-using Food.Web.Utilities;
 using static Food.Web.Utilities.StaticDetails;
-using System;
 
 namespace Food.Web.Services
 {
@@ -20,7 +17,7 @@ namespace Food.Web.Services
             {
                 ApiType = ApiType.POST,
                 Data = couponDto,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon/",
+                Url = CouponAPIBase + "/api/coupon/",
             });
         }
 
@@ -28,8 +25,8 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = StaticDetails.ApiType.DELETE,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon/" + id,
+                ApiType = ApiType.DELETE,
+                Url = CouponAPIBase + "/api/coupon/" + id,
             });
         }
         
@@ -38,8 +35,8 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = StaticDetails.ApiType.GET,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon",
+                ApiType = ApiType.GET,
+                Url = CouponAPIBase + "/api/coupon",
             });
         }
 
@@ -47,8 +44,8 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = StaticDetails.ApiType.GET,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon/GetByCode" + CouponCode,
+                ApiType =ApiType.GET,
+                Url = CouponAPIBase + "/api/coupon/GetByCode" + CouponCode,
             }
                 );
         }
@@ -57,8 +54,8 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = StaticDetails.ApiType.GET,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon/" + id,
+                ApiType =ApiType.GET,
+                Url =CouponAPIBase + "/api/coupon/" + id,
             });
         }
 
@@ -66,9 +63,9 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = StaticDetails.ApiType.PUT,
+                ApiType = ApiType.PUT,
                 Data = couponDto,
-                Url = StaticDetails.CouponAPIBase + "/api/coupon/",
+                Url = CouponAPIBase + "/api/coupon/",
             });
         }
     }

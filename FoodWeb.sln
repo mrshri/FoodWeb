@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Web", "Food.Web\Food.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Services.AuthAPI", "Food.Services.AuthAPI\Food.Services.AuthAPI.csproj", "{3EFC868B-319D-4B67-95F4-246FE50FF139}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food.Services.ProductAPI", "Food.Services.ProductAPI\Food.Services.ProductAPI.csproj", "{4E71972F-AFAD-44B7-B493-AB8A38250618}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{3EFC868B-319D-4B67-95F4-246FE50FF139}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EFC868B-319D-4B67-95F4-246FE50FF139}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EFC868B-319D-4B67-95F4-246FE50FF139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E71972F-AFAD-44B7-B493-AB8A38250618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E71972F-AFAD-44B7-B493-AB8A38250618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E71972F-AFAD-44B7-B493-AB8A38250618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E71972F-AFAD-44B7-B493-AB8A38250618}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{7D95110F-D116-4423-89B2-2637C82D807F} = {8E28E6D1-DDED-4523-A79A-F36F498FC548}
 		{56261077-422B-43FB-A292-8B2B4A714B7E} = {73A2580F-52E0-4826-A2F1-A96B9E84CBAB}
 		{3EFC868B-319D-4B67-95F4-246FE50FF139} = {8E28E6D1-DDED-4523-A79A-F36F498FC548}
+		{4E71972F-AFAD-44B7-B493-AB8A38250618} = {8E28E6D1-DDED-4523-A79A-F36F498FC548}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8677D872-AE92-49A3-89DF-78CD8E89AD37}

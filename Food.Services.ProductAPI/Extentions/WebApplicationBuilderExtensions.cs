@@ -2,9 +2,9 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Food.Services.CouponAPI.Extentions
+namespace Food.Services.ProductAPI.Extensions
 {
-    public static class WebApplicationBuilderExtentions
+    public static class WebApplicationBuilderExtensions
     {
         public static WebApplicationBuilder AddAppAuthentication(this WebApplicationBuilder builder) {
             var settingsSection = builder.Configuration.GetSection("APISettings");
