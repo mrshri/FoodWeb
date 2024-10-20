@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CouponAPI\Food.Services.CouponAPI.csproj" />
     <ProjectReference Include="..\Food.Services.AuthAPI\Food.Services.AuthAPI.csproj" />
+    <ProjectReference Include="..\Food.Services.ProductAPI\Food.Services.ProductAPI.csproj" />
   </ItemGroup>
 
 </Project>
