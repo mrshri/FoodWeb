@@ -1,12 +1,10 @@
 using AutoMapper;
-using Food.Services.CouponAPI;
-using Food.Services.CouponAPI.Data;
-using Food.Services.CouponAPI.Extensions;
+using Food.Services.ProductAPI;
+using Food.Services.ProductAPI.Data;
+using Food.Services.ProductAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services for the database connection string
 builder.Services.AddDbContext<ApplicationDBContext>(option =>
-{
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+    {
+        option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+);
 
 // Add services for the JWT Authentication
 builder.AddAppAuthentication();
@@ -30,6 +29,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 //adding Authorization to swagger
 builder.Services.AddSwaggerGen(option =>
@@ -69,12 +69,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 ApplyMigration();
-
 app.Run();
 
 void ApplyMigration()

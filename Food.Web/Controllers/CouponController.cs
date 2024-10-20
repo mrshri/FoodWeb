@@ -81,7 +81,5 @@ namespace Food.Web.Controllers
             }
             return View(couponDto);
         }
-
-
     }
 }
