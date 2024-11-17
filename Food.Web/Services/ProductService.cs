@@ -58,7 +58,7 @@ namespace Food.Web.Services
         {
             return await _baseService.SendAsync(new RequestDto()
             {
-                ApiType = ApiType.POST,
+                ApiType = ApiType.PUT,
                 Data = productDto,
                 Url = ProductAPIBase + "/api/product/"
 

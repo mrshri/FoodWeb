@@ -91,7 +91,7 @@ namespace Food.Services.ProductAPI.Controllers
             try
             {
                 Product product = _mapper.Map<Product>(productDTO);
-                _db.Update(product);
+                _db.Products.Update(product);
                 _db.SaveChanges();
                 _response.Result = _mapper.Map<ProductDTO>(product);
 
