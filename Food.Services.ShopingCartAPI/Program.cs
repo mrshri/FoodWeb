@@ -2,6 +2,8 @@ using AutoMapper;
 using Food.Services.ShoppingCartAPI;
 using Food.Services.ShoppingCartAPI.Data;
 using Food.Services.ShoppingCartAPI.Extensions;
+using Food.Services.ShoppingCartAPI.Service;
+using Food.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -25,6 +27,22 @@ builder.Services.AddAuthentication();
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//Add services for the API's
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICouponService,CouponService>();
+
+//httpclinetservice for Product API
+builder.Services.AddHttpClient("Product",c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]);
+});
+
+//httpclinetservice for Coupon API
+builder.Services.AddHttpClient("Coupon", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]);
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
