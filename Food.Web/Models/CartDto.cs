@@ -1,4 +1,4 @@
-﻿namespace Food.Services.ShoppingCartAPI.Models.DTO
+﻿namespace Food.Web.Models
 {
     public class CartDto
     {
