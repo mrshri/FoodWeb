@@ -31,11 +31,16 @@
                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               Content Management
                            </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Coupon</a></li>
+                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-controller="Coupon" asp-action="CouponIndex">Coupon</a></li>
                                 <li><a class="dropdown-item" asp-controller="Product" asp-action="ProductIndex">Product</a></li>
                                 <li class="dropdown-divider"></li>
-                    </ul>
+                           </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ShoppingCart" asp-action="ShoppingCartIndex">
+                                &nbsp;<i class="bi bi-cart"></i>&nbsp;
+                            </a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

@@ -35,12 +35,11 @@ namespace Food.Services.ShoppingCartAPI.Controllers
             {
                 CartDto cart = new()
                 {
-                    CartHeader = _mapper.Map<CartHeader>(_db.CartHeaders.First(u => u.UserId == userId)),
-
+                    CartHeader = _mapper.Map<CartHeaderDto>(_db.CartHeaders.First(u => u.UserId == userId))
                 };
-                cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
-                   .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId));
 
+                cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails.Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId));
+               
                 IEnumerable<ProductDTO> products = await _productService.GetProducts();
 
                 foreach (var item in cart.CartDetails)
@@ -121,8 +120,8 @@ namespace Food.Services.ShoppingCartAPI.Controllers
         {
             try
             {
-                var cartHeaderFromDb  = await _db.CartHeaders.AsNoTracking().
-                    FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
+                var cartHeaderFromDb  = await _db.CartHeaders.AsNoTracking()
+                    .FirstOrDefaultAsync(u => u.UserId == cartDto.CartHeader.UserId);
 
                 if (cartHeaderFromDb == null)
                 {

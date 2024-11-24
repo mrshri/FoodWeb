@@ -5,7 +5,7 @@
 namespace Food.Services.ShoppingCartAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class AddShoppingCartTablesDb : Migration
+    public partial class addShoppingCartTableDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

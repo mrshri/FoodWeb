@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food.Services.ShoppingCartAPI.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241101153122_AddShoppingCartTablesDb")]
-    partial class AddShoppingCartTablesDb
+    [Migration("20241123120700_addShoppingCartTableDb")]
+    partial class addShoppingCartTableDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -9,6 +9,7 @@ namespace Food.Services.ProductAPI.Controllers
 {
     [Route("api/product")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly ApplicationDBContext _db;

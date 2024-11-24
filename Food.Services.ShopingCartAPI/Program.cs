@@ -4,6 +4,7 @@ using Food.Services.ShoppingCartAPI.Data;
 using Food.Services.ShoppingCartAPI.Extensions;
 using Food.Services.ShoppingCartAPI.Service;
 using Food.Services.ShoppingCartAPI.Service.IService;
+using Food.Services.ShoppingCartAPI.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -30,18 +31,16 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //Add services for the API's
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService,CouponService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BackendAPIAuthenticationHttpClientHandler>();
 
 //httpclinetservice for Product API
 builder.Services.AddHttpClient("Product",c =>
-{
-    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]);
-});
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendAPIAuthenticationHttpClientHandler>();
 
 //httpclinetservice for Coupon API
 builder.Services.AddHttpClient("Coupon", c =>
-{
-    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]);
-});
+    c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"])).AddHttpMessageHandler<BackendAPIAuthenticationHttpClientHandler>();
 
 
 builder.Services.AddControllers();
