@@ -10,7 +10,7 @@ namespace Food.Web.Services
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ITokenProvider _tokenProvider;
-        public BaseServices(IHttpClientFactory httpClientFactory,ITokenProvider tokenProvider)
+        public BaseServices(IHttpClientFactory httpClientFactory, ITokenProvider tokenProvider)
         {
             _httpClientFactory = httpClientFactory;
             _tokenProvider = tokenProvider;
@@ -21,8 +21,14 @@ namespace Food.Web.Services
             {
                 HttpClient client = _httpClientFactory.CreateClient("FoodAPI");
                 HttpRequestMessage message = new();
-                message.Headers.Add("Accept", "application/json");
-
+                if (requestDto.ContentType == ContentType.MultiPartFormData)
+                {
+                    message.Headers.Add("Accept","*/*");
+                }
+                else
+                {
+                    message.Headers.Add("Accept", "application/json");
+                }
                 //Token
                 if (withBearer)
                 {
@@ -31,10 +37,36 @@ namespace Food.Web.Services
                 }
 
                 message.RequestUri = new Uri(requestDto.Url);
-                if (requestDto.Data != null)
+                if(requestDto.ContentType == ContentType.MultiPartFormData)
                 {
-                    message.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                    var content = new MultipartFormDataContent();
+                    foreach(var prop in requestDto.Data.GetType().GetProperties())
+                    {
+                        var value  = prop.GetValue(requestDto.Data);
+                        if(value is FormFile)
+                        {
+                            var file = (FormFile)value;
+                            if(file != null)
+                            {
+                                content.Add(new StreamContent(file.OpenReadStream()),prop.Name,file.FileName);
+                            }
+                        }
+                        else
+                        {
+                            content.Add(new StringContent(value == null ? "" : value.ToString()), prop.Name);
+                        }
+                    }
+                    message.Content = content;
                 }
+                else
+                {
+                    if (requestDto.Data != null)
+                    {
+                        message.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                    }
+
+                }
+
 
                 HttpResponseMessage? apiResponse = null;
                 switch (requestDto.ApiType)

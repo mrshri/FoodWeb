@@ -24,6 +24,17 @@ namespace Food.Web.Services
             });
         }
 
+        public async Task<ResponseDto> EmailShoppingCart(CartDto cartDto)
+        {
+            return await _baseService.SendAsync(new RequestDto()
+            {
+                ApiType = StaticDetails.ApiType.POST,
+                Data = cartDto,
+                Url = StaticDetails.ShoppingCartAPIBase + "/api/cart/EmailCartRequest",
+
+            });
+        }
+
         public async Task<ResponseDto> GetCartByUserIDAsync(string userId)
         {
             return await _baseService.SendAsync(new RequestDto()

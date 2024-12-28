@@ -8,5 +8,6 @@ namespace Food.Web.Services.IServices
         Task<ResponseDto> UpsertCartAsync(CartDto cartDto);
         Task<ResponseDto> RemoveFromCartAsync(int CartDetailsId);
         Task<ResponseDto> ApplyCouponAsync(CartDto cartDto);
+        Task<ResponseDto> EmailShoppingCart(CartDto cartDto);
     }
 }

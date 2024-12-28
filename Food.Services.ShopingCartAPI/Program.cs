@@ -1,4 +1,5 @@
 using AutoMapper;
+using Food.MessageBus;
 using Food.Services.ShoppingCartAPI;
 using Food.Services.ShoppingCartAPI.Data;
 using Food.Services.ShoppingCartAPI.Extensions;
@@ -33,6 +34,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService,CouponService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendAPIAuthenticationHttpClientHandler>();
+//Add services for the MessageBus
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 //httpclinetservice for Product API
 builder.Services.AddHttpClient("Product",c => 
 c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendAPIAuthenticationHttpClientHandler>();

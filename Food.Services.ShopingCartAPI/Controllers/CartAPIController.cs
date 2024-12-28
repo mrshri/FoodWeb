@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Food.MessageBus;
 using Food.Services.ShoppingCartAPI.Data;
 using Food.Services.ShoppingCartAPI.Models;
 using Food.Services.ShoppingCartAPI.Models.DTO;
 using Food.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Food.Services.ShoppingCartAPI.Controllers
 {
@@ -17,7 +19,12 @@ namespace Food.Services.ShoppingCartAPI.Controllers
         private  ResponseDto _response;
         private  IProductService _productService;
         private ICouponService _CouponService;
-        public CartAPIController(ApplicationDBContext db, IMapper mapper, IProductService productService, ICouponService couponService)
+        private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
+        public CartAPIController(ApplicationDBContext db, 
+            IMapper mapper, IProductService productService, 
+            ICouponService couponService, IMessageBus messageBus,
+            IConfiguration configuration)
         {
             _mapper = mapper;
             _db = db;
@@ -25,6 +32,8 @@ namespace Food.Services.ShoppingCartAPI.Controllers
             _CouponService = couponService;
             _response = new ResponseDto();
             _CouponService = couponService;
+            _configuration = configuration;
+            _messageBus = messageBus;
         }
 
 
@@ -33,11 +42,23 @@ namespace Food.Services.ShoppingCartAPI.Controllers
         {
             try
             {
+                var cartHeader = _db.CartHeaders.FirstOrDefault(u => u.UserId == userId);
+                if (cartHeader == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.ErrorMessage = "Cart not found for the given user.";
+                    return _response;
+                }
+
                 CartDto cart = new()
                 {
-                    CartHeader = _mapper.Map<CartHeaderDto>(_db.CartHeaders.First(u => u.UserId == userId))
-
+                    CartHeader = _mapper.Map<CartHeaderDto>(cartHeader)
                 };
+                //CartDto cart = new()
+                //{
+                //    CartHeader = _mapper.Map<CartHeaderDto>(_db.CartHeaders.FirstOrDefault(u => u.UserId == userId))
+
+                //};
                 cart.CartDetails = _mapper.Map<IEnumerable<CartDetailsDto>>(_db.CartDetails
                     .Where(u => u.CartHeaderId == cart.CartHeader.CartHeaderId));
 
@@ -193,6 +214,27 @@ namespace Food.Services.ShoppingCartAPI.Controllers
                 _response.ErrorMessage = e.Message.ToString();
             }
             return _response;
+        }
+
+        //sending message to service Bus
+        [HttpPost("EmailCartRequest")]
+        public async Task<object> EmailCartRequest([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue"));
+
+                _response.Result = true;
+
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessage = ex.Message;
+
+            }
+            return _response;
+
         }
     }
 }

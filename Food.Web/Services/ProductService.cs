@@ -19,7 +19,8 @@ namespace Food.Web.Services
             {
                 ApiType = ApiType.POST,
                 Data = productDto,
-                Url = ProductAPIBase + "/api/product/"
+                Url = ProductAPIBase + "/api/product/",
+                ContentType = ContentType.MultiPartFormData,
 
             });
         }
@@ -60,7 +61,8 @@ namespace Food.Web.Services
             {
                 ApiType = ApiType.PUT,
                 Data = productDto,
-                Url = ProductAPIBase + "/api/product/"
+                Url = ProductAPIBase + "/api/product/",
+                ContentType = ContentType.MultiPartFormData,
 
             });
         }
