@@ -361,6 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-# Adding appsettings
-appsettings.json
-MessageBus.cs
+# Adding 
+appsettings
+MessageBus
