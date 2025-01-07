@@ -100,24 +100,28 @@ namespace Food.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductEdit(ProductDto productDto)
         {
-
-            try
+            if (ModelState.IsValid)
             {
-                ResponseDto? response = await _productService.UpdateProductAsync(productDto);
-                if (response != null && response.IsSuccess)
+                try
                 {
-                    TempData["success"] = "Product Updated Successfully";
-                    return RedirectToAction(nameof(ProductIndex));
+
+                    ResponseDto? response = await _productService.UpdateProductAsync(productDto);
+                    if (response != null && response.IsSuccess)
+                    {
+                        TempData["success"] = "Product Updated Successfully";
+                        return RedirectToAction(nameof(ProductIndex));
+                    }
+                    else
+                    {
+                        TempData["error"] = response?.ErrorMessage;
+                    }
                 }
-                else
-                {
-                    TempData["error"] = response?.ErrorMessage;
-                }
-            }
+                
             catch (Exception ex)
             {
                 TempData["error"] = ex.InnerException?.Message ?? ex.Message;
             }
+        }
             return View(productDto);
 
         }

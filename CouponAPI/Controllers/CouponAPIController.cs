@@ -95,8 +95,16 @@ namespace Food.Services.CouponAPI.Controllers
                 _db.SaveChanges();
             
                 _response.Result = _mapper.Map<CouponDTO>(obj);
-
-
+                //creating coupon using stripe
+                var options = new Stripe.CouponCreateOptions
+                {
+                    AmountOff = (long)(couponDto.DiscountAmount * 100),
+                    Name = couponDto.CouponCode,
+                    Currency = "usd",
+                    Id = couponDto.CouponCode
+                };
+                var service = new Stripe.CouponService();
+                service.Create(options);
             }
             catch (Exception ex)
             {
@@ -117,8 +125,7 @@ namespace Food.Services.CouponAPI.Controllers
                 _db.SaveChanges();
 
                 _response.Result = _mapper.Map<CouponDTO>(obj);
-
-
+                
             }
             catch (Exception ex)
             {
@@ -137,9 +144,12 @@ namespace Food.Services.CouponAPI.Controllers
             {
                 Coupon obj = _db.Coupons.First(u => u.CouponId == id);
                 _db.Coupons.Remove(obj);
-                _db.SaveChanges();           
-
-
+                _db.SaveChanges();
+                
+                //deleting coupons using stripe
+                var service = new Stripe.CouponService();
+                service.Delete(obj.CouponCode);
+            
             }
             catch (Exception ex)
             {
