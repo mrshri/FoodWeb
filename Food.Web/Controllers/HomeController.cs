@@ -36,7 +36,7 @@ namespace Food.Web.Controllers
             return View(products);
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> ProductDetails(int productId)
         {
             ProductDto? product = new();
@@ -53,7 +53,7 @@ namespace Food.Web.Controllers
             return View(product);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [ActionName("ProductDetails")]
         public async Task<IActionResult> ProductDetails(ProductDto productDto)

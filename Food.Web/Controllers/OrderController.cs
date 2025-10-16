@@ -15,7 +15,7 @@ namespace Food.Web.Controllers
         {
             _orderService = orderService;
         }
-        [Authorize]
+        //[Authorize]
         public IActionResult OrderIndex()
         {
             return View();

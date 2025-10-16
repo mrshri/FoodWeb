@@ -1,5 +1,4 @@
-﻿using Food.MessageBus;
-using Food.Services.AuthAPI.Models.DTO;
+﻿using Food.Services.AuthAPI.Models.DTO;
 using Food.Services.AuthAPI.Service.IService;
 using Food.Services.AuthPI.Models.DTO;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +13,13 @@ namespace Food.Services.AuthAPI.Controllers
     {
         private readonly IAuthService _authService;
         private readonly ResponseDto _response;
-        private readonly IMessageBus _messageBus;
+        //private readonly IMessageBus _messageBus;
         private readonly IConfiguration _configuration;
 
-        public AuthAPIController(IAuthService authService, IMessageBus messageBus, IConfiguration configuration)
+        public AuthAPIController(IAuthService authService, IConfiguration configuration)
         {
             _authService = authService;
-            _messageBus = messageBus;
+            //_messageBus = messageBus;
             _configuration = configuration;
             _response = new();
         }
@@ -36,7 +35,7 @@ namespace Food.Services.AuthAPI.Controllers
                 return BadRequest(_response);
             }
 
-            await _messageBus.PublishMessage(model.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));
+            //await _messageBus.PublishMessage(model.Email, _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue"));
 
             return Ok(_response);
         }

@@ -20,13 +20,13 @@ namespace Food.Web.Controllers
             _orderService = orderService;
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> ShoppingCartIndex()
         {
             return View(await LoadCartBasedOnLoggedInUser());
         }
 
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Checkout()
         {
             return View(await LoadCartBasedOnLoggedInUser());
