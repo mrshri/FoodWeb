@@ -6,11 +6,16 @@ namespace Food.MessageBus
 {
     public class MessageBus : IMessageBus
     {
-        private string connectionString = "Endpoint=sb://food-web.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=N7GKXYXgLcAWbJlIqLybhEvP5ALlNcA0++ASbDQcYoI=";
+        private readonly string _connectionString;
+
+        public MessageBus(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         public async Task PublishMessage(object message, string topic_queue_name)
         {
-            await using var client = new ServiceBusClient(connectionString);
+            await using var client = new ServiceBusClient(_connectionString);
 
             ServiceBusSender sender = client.CreateSender(topic_queue_name);
 
