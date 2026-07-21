@@ -35,7 +35,12 @@ builder.Services.AddScoped<ICouponService,CouponService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendAPIAuthenticationHttpClientHandler>();
 //Add services for the MessageBus
-builder.Services.AddScoped<IMessageBus, MessageBus>();
+builder.Services.AddScoped<IMessageBus>(provider =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("ServiceBusConnection")
+        ?? throw new InvalidOperationException("ServiceBusConnection connection string not found.");
+    return new MessageBus(connectionString);
+});
 //httpclinetservice for Product API
 builder.Services.AddHttpClient("Product",c => 
 c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendAPIAuthenticationHttpClientHandler>();

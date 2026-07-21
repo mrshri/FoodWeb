@@ -26,7 +26,14 @@ namespace Food.Web.Services
 
         public void SetToken(string token)
         {
-            _httpContextAccessor.HttpContext?.Response.Cookies.Append(StaticDetails.TokenCookie,token);
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddDays(7)
+            };
+            _httpContextAccessor.HttpContext?.Response.Cookies.Append(StaticDetails.TokenCookie, token, cookieOptions);
         }
     }
 }

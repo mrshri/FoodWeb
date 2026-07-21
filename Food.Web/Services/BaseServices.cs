@@ -100,7 +100,7 @@ namespace Food.Web.Services
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
-                        return apiResponseDto;
+                        return apiResponseDto ?? new() { IsSuccess = false, ErrorMessage = "Invalid response format" };
                 }
             }
             catch (Exception ex)
